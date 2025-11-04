@@ -1,5 +1,6 @@
 <?php
 include 'bd.php';
+session_start();
 function tempoAtras($dataHora)
 {
     date_default_timezone_set('America/Sao_Paulo'); // Ajusta para o Brasil
@@ -31,7 +32,7 @@ function tempoAtras($dataHora)
 
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">

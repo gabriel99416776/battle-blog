@@ -27,6 +27,32 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+.navbar-nav .nav-link {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 19px;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* linha embaixo do texto */
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #e73700; /* cor da linha */
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #e73700; /* muda cor do texto ao passar o mouse */
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%; /* linha cresce da esquerda para direita */
+}
 
 .carousel-centro {
   width: 60%;
@@ -122,9 +148,9 @@ body {
 
 .img-post {
   width: 40%;
-  
+
   display: block;
-  margin: 50px  auto 20px; /* centraliza horizontalmente */
+  margin: 50px auto 20px; /* centraliza horizontalmente */
   border-radius: 20px;
   -webkit-mask-image: linear-gradient(to top, transparent 10%, black 100%);
   mask-image: linear-gradient(to top, transparent 10%, black 100%);

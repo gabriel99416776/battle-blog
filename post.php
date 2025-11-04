@@ -1,6 +1,6 @@
 <?php
 include 'bd.php'; // conexão com o banco
-
+session_start();
 if (!isset($_GET['id'])) {
     echo "Post não encontrado.";
     exit;
