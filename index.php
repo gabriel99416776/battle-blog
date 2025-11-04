@@ -1,5 +1,32 @@
 <?php
 include 'bd.php';
+function tempoAtras($dataHora)
+{
+    date_default_timezone_set('America/Sao_Paulo'); // Ajusta para o Brasil
+    $timestamp = strtotime($dataHora);
+    $agora = time();
+    $diferenca = $agora - $timestamp;
+
+    if ($diferenca < 60) {
+        return "há poucos segundos";
+    } elseif ($diferenca < 3600) {
+        $minutos = floor($diferenca / 60);
+        return "há $minutos minuto" . ($minutos > 1 ? "s" : "");
+    } elseif ($diferenca < 86400) {
+        $horas = floor($diferenca / 3600);
+        return "há $horas hora" . ($horas > 1 ? "s" : "");
+    } elseif ($diferenca < 2592000) { // menos de 30 dias
+        $dias = floor($diferenca / 86400);
+        return "há $dias dia" . ($dias > 1 ? "s" : "");
+    } elseif ($diferenca < 31536000) { // menos de 12 meses
+        $meses = floor($diferenca / 2592000);
+        return "há $meses mês" . ($meses > 1 ? "es" : "");
+    } else {
+        $anos = floor($diferenca / 31536000);
+        return "há $anos ano" . ($anos > 1 ? "s" : "");
+    }
+}
+
 ?>
 
 
@@ -10,42 +37,13 @@ include 'bd.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Battle Blog</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/uikit.min.css" />
-    <script src="js/uikit.min.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <?php include 'cdn.php'; ?>
 </head>
 
 <body>
-    <div class="tudo">
-        <nav class="navbar bg-black navbar-expand-xl navbar-dark">
-            <div class="container">
-                <img src="assets/logo.png" alt="">
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#navbarOffcanvas"
-                    aria-controls="navbarOffcanvas"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end bg-secondary" id="navbarOffcanvas"
-                    tabindex="-1" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Offcanvas</h5>
-                        <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <div class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <a class="nav-item nav-link active" aria-current="page" href="#">Bubbles</a>
-                            <a class="nav-item nav-link" href="#">Cosmo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+    <div class="tudo">  
+
+        <?php include 'header.php'; ?>
 
 
         <section>
@@ -128,35 +126,60 @@ include 'bd.php';
                     <div class="row">
                         <div class="col-md-4 p-4">
                             <div class="border">
-                                <div class="position-relative w-100" style="height: 250px;background-image: url(https://drop-assets.ea.com/images/7ci5pMD6oEF1LcWn6rl675/1800360db479da62b5e520ae83a89b47/battlefield-6-tactical-destruction-16x9.jpg); background-size: cover; background-position: center;">
-                                    <div class="position-absolute bg-dark" style="opacity: .3; top: 0; left:0; right: 0; bottom: 0;"></div>
-                                    <div class="position-absolute text-white d-flex flex-column justify-content-center align-items-center rounded-circle" style="top:10px; right:10px; width: 70px; height: 70px; background-color: #e73700;">
-                                        <small>27</small>
-                                        <small><b>MAR</b></small>
-                                    </div>
-                                    <a href="#" class="position-absolute px-3 py-2 text-white ler" style="bottom:10px; left: 10px; background-color: #e73700;"><small>LER</small></a>
-                                </div>
-                                <div class="px-3 pt-4 pb-3">
-                                    <a href="#" class="d-inline-block" style="text-decoration:none;">
-                                        <h1 style="font-weight:600; font-size:2rem; color:#fff;">
-                                            Lorem ipsum dolor sit amet.
-                                        </h1>
-                                    </a>
+                                <?php
+                                $query_posts = "SELECT * FROM tbl_posts ORDER BY id DESC LIMIT 3";
+                                $result_posts = mysqli_query($conn, $query_posts);
 
-                                    <p class="tex-secondary" style="color: #fff">asperiores dolore explicabo aut excepturi aliquam nam?</p>
-                                    <div class="d-flex mt-4">
-                                        <div class="d-flex align-items-center mr-4">
-                                            <i class="bi bi-clock-fill me-1" style="color:#e73700;"></i>
-                                            <small style="color:#e73700; margin-right: 20px">6 min ago</small>
+                                if (mysqli_num_rows($result_posts) > 0) {
+                                    while ($post = mysqli_fetch_assoc($result_posts)) {
+                                        // Pega a data do banco e converte
+                                        $data_publicacao = strtotime($post['data_publicacao']);
+                                        $dia = date('d', $data_publicacao);
+                                        $mes = strtoupper(date('M', $data_publicacao));
+                                        $preview = mb_strimwidth(strip_tags($post['conteudo']), 0, 100, ' . . .');
+                                ?>
+                                        <div class="position-relative w-100" style="height: 250px; background-image: url('<?= $post['imagem']; ?>'); background-size: cover; background-position: center;">
+                                            <div class="position-absolute bg-dark" style="opacity: .3; top: 0; left:0; right: 0; bottom: 0;"></div>
+                                            <div class="position-absolute text-white d-flex flex-column justify-content-center align-items-center rounded-circle"
+                                                style="top:10px; right:10px; width: 70px; height: 70px; background-color: #e73700;">
+                                                <small><b><?= $dia ?></b></small>
+                                                <small><b><?= $mes ?></b></small>
+                                            </div>
+                                            <a href="post.php?id=<?= $post['id']; ?>" class="position-absolute px-3 py-2 text-white ler"
+                                                style="bottom:10px; left: 10px; background-color: #e73700;">
+                                                <small>LER</small>
+                                            </a>
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <i class="bi bi-chat-dots-fill me-1" style="color:#e73700;"></i>
-                                            <small style="color:#e73700;">3 comments</small>
-                                        </div>
-                                    </div>
+                                        <div class="px-3 pt-4 pb-3">
+                                            <a href="#" class="d-inline-block" style="text-decoration:none;">
+                                                <h1 style="font-weight:600; font-size:2rem; color:#fff;">
+                                                    <?= $post['titulo']; ?>
+                                                </h1>
+                                            </a>
 
-                                </div>
+                                            <p class="tex-secondary" style="color: #fff"><?= $preview ?></p>
+
+                                            <div class="d-flex mt-4">
+                                                <div class="d-flex align-items-center mr-4">
+                                                    <i class="bi bi-clock-fill me-1" style="color:#e73700;"></i>
+                                                    <small style="color:#e73700; margin-right: 20px">
+                                                        <?= tempoAtras($post['data_publicacao']); ?>
+                                                    </small>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-chat-dots-fill me-1" style="color:#e73700;"></i>
+                                                    <small style="color:#e73700;">3 comments</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "<p>Nenhum post encontrado.</p>";
+                                }
+                                ?>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -164,6 +187,7 @@ include 'bd.php';
 
             </div>
         </section>
+        <?php include 'footer.php'; ?>
     </div>
     </div>
 

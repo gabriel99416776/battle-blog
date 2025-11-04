@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 nav .navbar {
   background-color: #000000 !important;
 }
@@ -10,16 +11,21 @@ nav .navbar {
   width: 180px;
   height: 80px;
 }
-.tudo{
-    height: 100%;
-  width: 100%;
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.tudo {
+  min-height: 100vh; /* garante que ocupe toda a altura da tela */
+  width: 100%;
   background-image: url("https://www.ea.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FBF6_BaseBG.3b6ebe76.png&w=1920&q=75");
-  background-size: cover; /* cobre toda a tela */
-  background-position: center; /* centraliza */
-  background-repeat: no-repeat; /* evita repetição */
-  background-attachment: fixed; /* mantém fixo ao rolar */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .carousel-centro {
@@ -98,21 +104,41 @@ nav .navbar {
   color: #e73700;
 }
 
-
-
-.border{
-  background-color: #2F383E;
+.border {
+  background-color: #2f383e;
 }
 
-.border .ler{
+.border .ler {
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 18px;
   font-weight: bold;
   border-radius: 10px;
 }
-.border .ler:hover{
+.border .ler:hover {
   background-color: #fff;
   transition: 1s ease-in-out;
 }
 
+.img-post {
+  width: 40%;
+  
+  display: block;
+  margin: 50px  auto 20px; /* centraliza horizontalmente */
+  border-radius: 20px;
+  -webkit-mask-image: linear-gradient(to top, transparent 10%, black 100%);
+  mask-image: linear-gradient(to top, transparent 10%, black 100%);
+}
+.container .titulo-post {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #e73700;
+}
+
+.conteudo-post {
+  margin: 20px auto;
+  font-size: 18px;
+  color: #ffffff;
+}
