@@ -7,6 +7,11 @@
 nav .navbar {
   background-color: #000000 !important;
 }
+nav {
+  border-bottom: 8px solid #e73700;
+  box-shadow: 0 0 1em #e73700;
+}
+
 .navbar .container img {
   width: 180px;
   height: 80px;
@@ -147,7 +152,7 @@ body {
 }
 
 .img-post {
-  width: 40%;
+  width: 50%;
 
   display: block;
   margin: 50px auto 20px; /* centraliza horizontalmente */

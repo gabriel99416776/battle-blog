@@ -28,6 +28,7 @@ function tempoAtras($dataHora)
     }
 }
 
+
 ?>
 
 
@@ -38,11 +39,11 @@ function tempoAtras($dataHora)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Battle Blog</title>
-   <?php include 'cdn.php'; ?>
+    <?php include 'cdn.php'; ?>
 </head>
 
 <body>
-    <div class="tudo">  
+    <div class="tudo">
 
         <?php include 'header.php'; ?>
 
@@ -133,6 +134,12 @@ function tempoAtras($dataHora)
 
                                 if (mysqli_num_rows($result_posts) > 0) {
                                     while ($post = mysqli_fetch_assoc($result_posts)) {
+                                        // Conta comentários do post atual
+                                        $post_id = intval($post['id']);
+                                        $sqlCount = "SELECT COUNT(*) AS total FROM tbl_comentarios WHERE post_id = $post_id AND status = 'ativo'";
+                                        $resCount = mysqli_query($conn, $sqlCount);
+                                        $countRow = mysqli_fetch_assoc($resCount);
+                                        $totalComentarios = $countRow['total'] ?? 0;
                                         // Pega a data do banco e converte
                                         $data_publicacao = strtotime($post['data_publicacao']);
                                         $dia = date('d', $data_publicacao);
@@ -169,7 +176,8 @@ function tempoAtras($dataHora)
                                                 </div>
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-chat-dots-fill me-1" style="color:#e73700;"></i>
-                                                    <small style="color:#e73700;">3 comments</small>
+                                                    <small style="color:#e73700;"><?= $totalComentarios ?> Comentário<?= $totalComentarios != 1 ? 's' : '' ?>
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>

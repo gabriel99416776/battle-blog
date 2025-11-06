@@ -19,6 +19,9 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/battlefield/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">GamesBlog</a>
                     </li>
                     <li class="nav-item">
@@ -31,13 +34,13 @@
                                 👋 <?= htmlspecialchars($_SESSION['user_nome']); ?>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Painel</a></li>
+                                <li><a class="dropdown-item" href="painel.php">Painel</a></li>
 
 
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Sair</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Sair</a></li>
                             </ul>
                         </div>
                     <?php else: ?>

@@ -10,21 +10,14 @@
                     class="btn btn-primary btn-floating m-1"
                     style="background-color: #3b5998;"
                     href="#!"
-                    role="button"><i class="fab fa-facebook-f"></i></a>
-
-                <!-- Twitter -->
-                <a
-                    class="btn btn-primary btn-floating m-1"
-                    style="background-color: #55acee;"
-                    href="#!"
-                    role="button"><i class="fab fa-twitter"></i></a>
+                    role="button"><i class="fab fa-discord"></i></a>
 
                 <!-- Google -->
                 <a
                     class="btn btn-primary btn-floating m-1"
                     style="background-color: #dd4b39;"
                     href="#!"
-                    role="button"><i class="fab fa-google"></i></a>
+                    role="button"><i class="fab fa-youtube"></i></a>
 
                 <!-- Instagram -->
                 <a
@@ -32,19 +25,12 @@
                     style="background-color: #ac2bac;"
                     href="#!"
                     role="button"><i class="fab fa-instagram"></i></a>
-
-                <!-- Linkedin -->
-                <a
-                    class="btn btn-primary btn-floating m-1"
-                    style="background-color: #0082ca;"
-                    href="#!"
-                    role="button"><i class="fab fa-linkedin-in"></i></a>
                 <!-- Github -->
                 <a
                     class="btn btn-primary btn-floating m-1"
-                    style="background-color: #333333;"
+                    style="background-color: #15c015ff;"
                     href="#!"
-                    role="button"><i class="fab fa-github"></i></a>
+                    role="button"><i class="fab fa-whatsapp"></i></a>
             </section>
             <!-- Section: Social media -->
         </div>

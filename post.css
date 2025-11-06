@@ -1,0 +1,298 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #323232;
+  --accent: #f70000ff;
+  --muted: #d8d8d8ff;
+  --shadow: 0 6px 18px rgba(20, 30, 60, 0.08);
+  --radius: 12px;
+}
+
+/* Layout principal */
+.wrap {
+  max-width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Post card */
+.post {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.post h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #e73700;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.post p {
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+/* Comentários (sidebar) */
+.sidebar {
+  position: relative;
+  height: fit-content;
+}
+
+.comments-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 60px;
+}
+
+.comment {
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #e73700;
+  border: 1px solid #323232;
+}
+
+#comments-list {
+  max-height: 300px;
+  /* altura máxima visível */
+  overflow-y: auto;
+  /* adiciona rolagem vertical quando necessário */
+  display: flex;
+  flex-direction: column;
+  padding-right: 8px;
+  gap: 10px;
+}
+
+/* Exibe no máximo 5 comentários antes de precisar rolar */
+#comments-list .comment:nth-child(n + 6) {
+  margin-top: 0;
+}
+
+#comments-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#comments-list::-webkit-scrollbar-thumb {
+  background-color: #e73700;
+  border-radius: 10px;
+}
+
+#comments-list::-webkit-scrollbar-track {
+  background: #2b2b2b;
+}
+
+.comment .who {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+}
+
+.comment .time {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.comment .text {
+  font-size: 14px;
+  color: #fff;
+  margin-top: 6px;
+}
+
+/* Form */
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e6edf8;
+  font-family: inherit;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(37, 99, 235, 0.14);
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Abinha fixa na lateral */
+.tab {
+  position: fixed;
+  right: 18px;
+  top: 40%;
+  transform: translateY(-50%);
+  background: var(--accent);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+  cursor: pointer;
+  font-weight: 700;
+  z-index: 60;
+}
+
+.tab .count {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+/* Drawer quando a abinha é clicada (mobile / overlay) */
+.drawer {
+  position: fixed;
+  right: -420px;
+  top: 0;
+  width: 380px;
+  height: 100vh;
+  background: var(--card);
+  box-shadow: -20px 0 40px rgba(10, 20, 40, 0.12);
+  border-left: 1px solid rgba(0, 0, 0, 0.03);
+  transition: right 260ms cubic-bezier(0.2, 0.9, 0.25, 1);
+  z-index: 70;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.drawer .close {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+/* Responsividade */
+@media (max-width: 980px) {
+  .wrap {
+    grid-template-columns: 1fr;
+    padding-bottom: 100px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* ocultar sidebar normal em mobile - usamos drawer */
+  .tab {
+    right: 12px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
+    border-radius: 12px;
+  }
+
+  .drawer {
+    width: 100%;
+    right: -100%;
+    max-width: 420px;
+  }
+
+  .drawer.open {
+    right: 0;
+  }
+}
+
+/* pequenas melhorias visuais */
+.sample-badge {
+  display: inline-block;
+  background: #eef6ff;
+  color: var(--accent);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.empty-note {
+  background: #fff7ed;
+  border: 1px solid #ffecd1;
+  padding: 10px;
+  border-radius: 8px;
+  color: #8a5a00;
+}
+
+/* Esconde o botão de comentários no desktop */
+.tab {
+  display: none;
+}
+
+/* Exibe o botão apenas em telas até 980px (mobile) */
+@media (max-width: 980px) {
+  .tab {
+    display: block;
+  }
+}
+
+/* Rolagem nos comentários dentro da abinha (drawer) */
+#drawer-comments {
+  max-height: 60vh;
+  /* ocupa até 60% da altura da tela */
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* estilo da barra de rolagem (opcional, combina com o restante) */
+#drawer-comments::-webkit-scrollbar {
+  width: 8px;
+}
+
+#drawer-comments::-webkit-scrollbar-thumb {
+  background-color: #e73700;
+  border-radius: 10px;
+}
+
+#drawer-comments::-webkit-scrollbar-track {
+  background: #2b2b2b;
+}
